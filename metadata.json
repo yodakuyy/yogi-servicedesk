@@ -1,0 +1,5 @@
+{
+  "name": "Modena Servicedesk",
+  "description": "A modern login interface for Modena Servicedesk with Microsoft authentication integration.",
+  "requestFramePermissions": []
+}
