@@ -2,16 +2,36 @@ import React, { useState } from 'react';
 import LoginForm from './components/LoginForm';
 import HeroImage from './components/HeroImage';
 import DepartmentSelection from './components/DepartmentSelection';
+import MainDashboard from './components/MainDashboard';
+
+type ViewState = 'login' | 'selection' | 'dashboard';
 
 const App: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [view, setView] = useState<ViewState>('login');
 
   const handleLogin = () => {
-    setIsLoggedIn(true);
+    setView('selection');
   };
 
-  if (isLoggedIn) {
-    return <DepartmentSelection />;
+  const handleDepartmentSelect = (deptId: string) => {
+    console.log(`Selected department: ${deptId}`);
+    if (deptId === 'DIT') {
+      setView('dashboard');
+    } else {
+      // For now, other departments also go to dashboard or stay (customizable)
+      // Based on request "saat diklik departemen DIT akan pindah ke halam utama"
+      // We will default to dashboard for demo purposes, or specifically check DIT.
+      // Let's allow all for navigation, but specifically DIT was requested.
+      setView('dashboard');
+    }
+  };
+
+  if (view === 'dashboard') {
+    return <MainDashboard />;
+  }
+
+  if (view === 'selection') {
+    return <DepartmentSelection onSelect={handleDepartmentSelect} />;
   }
 
   return (

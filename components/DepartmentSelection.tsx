@@ -1,7 +1,11 @@
 import React from 'react';
 import { Zap, Check, ArrowRight } from 'lucide-react';
 
-const DepartmentSelection: React.FC = () => {
+interface DepartmentSelectionProps {
+  onSelect: (deptId: string) => void;
+}
+
+const DepartmentSelection: React.FC<DepartmentSelectionProps> = ({ onSelect }) => {
   const departments = [
     {
       id: 'DIT',
@@ -65,10 +69,11 @@ const DepartmentSelection: React.FC = () => {
         </div>
 
         {/* Departments Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 w-full justify-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 w-full justify-items-center">
           {departments.map((dept, index) => (
             <div
               key={index}
+              onClick={() => onSelect(dept.id)}
               className="group relative flex flex-col p-6 lg:p-8 rounded-2xl border border-gray-100 bg-white hover:bg-[#1a1f2e] hover:border-[#1a1f2e] transition-all duration-300 cursor-pointer shadow-sm hover:shadow-2xl hover:-translate-y-2 w-full max-w-sm"
             >
               {/* Card Header */}
